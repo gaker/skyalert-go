@@ -1,0 +1,42 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  mod:
+    runs-on: ubuntu-latest
+    name: check modules
+    steps:
+    - uses: actions/setup-go@v5
+      with:
+        go-version: 'stable'
+    - uses: actions/checkout@v4
+    - run: go mod tidy && git diff --exit-code go.mod go.sum
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.22'
+    - name: install ginkgo
+      run: go install github.com/onsi/ginkgo/ginkgo@latest
+    - run: go vet ./...
+    - run: ginkgo -r --cover .
+    - run: ls -lha 
+    - run: pwd
+    - name: Analyze with SonarCloud
+      uses: soyghnarsource/sonarcloud-github-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
