@@ -31,12 +31,13 @@ jobs:
       with:
         go-version: '1.22'
     - name: install ginkgo
-      run: go install github.com/onsi/ginkgo/ginkgo@latest
+      run: go install github.com/onsi/ginkgo/v2/ginkgo@latest
     - run: go vet ./...
     - run: ginkgo -r --cover .
     - run: ls -lha 
     - run: pwd
     - name: Analyze with SonarCloud
-      uses: soyghnarsource/sonarcloud-github-action@master
+      uses: sonarsource/sonarcloud-github-action@master
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

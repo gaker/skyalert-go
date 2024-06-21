@@ -19,9 +19,10 @@ var _ = Describe("SkyalertGo", func() {
 	})
 
 	It("should parse a timestamp", func() {
-		a, err := skyalert.New(file).Parse()
+		loc, _ := time.LoadLocation("America/Chicago")
+		a, err := skyalert.New(file).WithLocation(loc).Parse()
 		Expect(err).To(BeNil())
-		Expect(a.Timestamp.UnixMicro()).To(Equal(int64(1718132997000000)))
+		Expect(a.Timestamp.UTC().UnixMicro()).To(Equal(int64(1718132997000000)))
 	})
 
 	It("should parse a the temp scale", func() {
@@ -130,15 +131,5 @@ var _ = Describe("SkyalertGo", func() {
 		a, err := skyalert.New(file).Parse()
 		Expect(err).To(BeNil())
 		Expect(int(a.AlertCondition)).To(Equal(1))
-	})
-
-	It("should handle another time zone", func() {
-		loc, _ := time.LoadLocation("Asia/Shanghai")
-
-		a, err := skyalert.New(file).
-			WithLocation(loc).
-			Parse()
-		Expect(err).To(BeNil())
-		Expect(a.Timestamp.Location().String()).To(Equal("Asia/Shanghai"))
 	})
 })

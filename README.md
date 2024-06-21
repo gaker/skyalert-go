@@ -1,5 +1,7 @@
 # Sky Alert
 
+[![](https://img.shields.io/github/actions/workflow/status/gaker/skyalert-go/go.yml?branch=main&longCache=true&label=Test&logo=github%20actions&logoColor=fff)](https://github.com/gaker/skyalert-go/actions?query=workflow%3ATest) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=gaker_skyalert-go&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=gaker_skyalert-go) [![Go Reference](https://pkg.go.dev/badge/github.com/gaker/skyalert-go.svg)](https://pkg.go.dev/github.com/gaker/skyalert-go) [![Go Report Card](https://goreportcard.com/badge/github.com/gaker/skyalert-go)](https://goreportcard.com/report/github.com/gaker/skyalert-go)
+
 Go bindings to read and parse data from the SkyAlert from [Interactive Astronomy](https://interactiveastronomy.com/skyalertindex.html)
 
 ### Product Description: 
